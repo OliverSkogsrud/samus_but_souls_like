@@ -75,7 +75,7 @@ func _unhandled_input(_event):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): 
 		if isAttacking == false:
 			$Area2D.set_deferred("monitoring", true)
-			$Area2D.set_deferred("monitorable", true)
+			
 			
 			if is_on_floor():
 				isAttacking = true
@@ -104,7 +104,6 @@ func _on_anims_animation_finished():
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("Enemy"):
-		if isAttacking:
-			area.takeDamage(damage)
-			$Area2D.set_deferred("monitoring", false)
-			$Area2D.set_deferred("monitorable", false)
+		area.takeDamage(damage)
+		$Area2D.set_deferred("monitoring", false)
+			
