@@ -74,22 +74,22 @@ func _physics_process(delta):
 func _unhandled_input(_event):
 	if Input.is_action_just_pressed("Attack"): 
 		if isAttacking == false:
-			$Area2D.set_deferred("monitoring", true)
-			
-			
 			if is_on_floor():
+				
+				$Area2D.set_deferred("monitoring", true)
+				
 				isAttacking = true
 			
-			if isAttacking:
-				if slashSequence == 0:
-					anims.play("Slash1")
-				if slashSequence == 1:
-					anims.play("Slash2")
-				if slashSequence == 2:
-					slashSequence = 0
-					anims.play("Slash1")
+				if isAttacking:
+					if slashSequence == 0:
+						anims.play("Slash1")
+					if slashSequence == 1:
+						anims.play("Slash2")
+					if slashSequence == 2:
+						slashSequence = 0
+						anims.play("Slash1")
 			
-			collision1.disabled = false
+				collision1.disabled = false
 			
 			print("Attack")
 
