@@ -4,13 +4,16 @@ var health = 30
 
 var dead = false
 
+@onready var healthbar = $Control/ProgressBar
+
 @onready var anims = $AnimatedSprite2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	healthbar.value = health
 	if health <= 0:
 		anims.play("Death")
 		dead = true
