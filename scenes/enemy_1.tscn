@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://d2l64kwj3088f"]
+[gd_scene load_steps=31 format=3 uid="uid://d2l64kwj3088f"]
 
 [ext_resource type="Texture2D" uid="uid://ddetqdsgftlle" path="res://Sprites/Satyr Character-Sheet v1.1/satiro-Sheet v1.1.png" id="1_ltkmu"]
 [ext_resource type="Script" path="res://enemy_1.gd" id="1_uru3u"]
@@ -191,6 +191,34 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3cvk5"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g70px"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.882353, 0.0431373, 0.0117647, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ru25x"]
+bg_color = Color(0.976471, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.796078, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 10
+shadow_size = 5
+anti_aliasing_size = 2.859
+
 [node name="Enemy1" type="Area2D" groups=["Enemy"]]
 script = ExtResource("1_uru3u")
 
@@ -212,19 +240,25 @@ offset_right = 121.0
 offset_bottom = 43.0
 
 [node name="ProgressBar" type="ProgressBar" parent="Control"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -72.5
+offset_left = -71.5
 offset_top = -15.5
-offset_right = 53.5
+offset_right = 54.5
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
+theme_override_constants/outline_size = -1
+theme_override_font_sizes/font_size = 16
+theme_override_styles/background = SubResource("StyleBoxFlat_g70px")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ru25x")
 max_value = 30.0
+value = 20.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
