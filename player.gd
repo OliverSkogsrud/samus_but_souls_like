@@ -56,13 +56,15 @@ func _physics_process(delta):
 		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
+	
+	#rolling
 	var direction = Input.get_axis("a", "d")
-	if not isrolling:
-		if Input.is_action_just_pressed("Q"):
-				if not isAttacking:
-					if is_on_floor():
-						anims.position.y = 7
+	if Input.is_action_just_pressed("Q"):
+			if not isAttacking:
+				if is_on_floor():
+					if not isrolling:
 						isrolling = true
+						anims.position.y = 7
 						SPEED = 350 
 						velocity.x = direction * SPEED
 						if velocity.x == 0:
@@ -70,8 +72,7 @@ func _physics_process(delta):
 								velocity.x = -SPEED
 							if anims.flip_h == false:
 								velocity.x = SPEED
-						
-								
+
 	
 	
 	if direction:
