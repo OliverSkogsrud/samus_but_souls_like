@@ -226,7 +226,6 @@ script = ExtResource("1_uru3u")
 sprite_frames = SubResource("SpriteFrames_mfejg")
 animation = &"Death"
 autoplay = "Idle"
-frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
