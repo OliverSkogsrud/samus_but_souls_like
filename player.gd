@@ -62,7 +62,16 @@ func _physics_process(delta):
 				if not isAttacking:
 					anims.position.y = 7
 					isrolling = true
-					SPEED = 350
+					SPEED = 350 
+					velocity.x = SPEED * direction
+					if velocity.x == 0:
+						
+						if anims.flip_h == true:
+							velocity.x = -SPEED
+							
+						elif anims.flip_h == false:
+							velocity.x = SPEED
+								
 	
 	
 	if direction:
@@ -96,7 +105,7 @@ func _physics_process(delta):
 	
 func _unhandled_input(_event):
 	if Input.is_action_just_pressed("Attack"): 
-		if isAttacking == false:
+		if isAttacking == false and isrolling == false:
 			if is_on_floor():
 				
 				$Area2D.set_deferred("monitoring", true)
@@ -127,7 +136,7 @@ func _on_anims_animation_finished():
 		anims.position.y = 0
 		isrolling = false
 		SPEED = 300.0
-		velocity.x = SPEED
+		
 		
 
 
