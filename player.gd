@@ -3,6 +3,10 @@ extends CharacterBody2D
 
 @onready var collision1 = $Area2D/CollisionShape2D
 
+var canJump = true
+
+var isrolling = false
+
 var SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
@@ -23,14 +27,23 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 		anims.play("Jump")
 		
+	if isAttacking == true:
+		canJump = false
+	else:
+		canJump = true
+		
+		
+	if isrolling == true:
+		anims.play("roll")
 	
 			
 		
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("w"):
-		if is_on_floor():
-			velocity.y = JUMP_VELOCITY
-			
+		if canJump == true:
+			if is_on_floor():
+				velocity.y = JUMP_VELOCITY
+				
 			
 		#turn hitbox
 	if anims.flip_h == true:
@@ -38,33 +51,43 @@ func _physics_process(delta):
 			
 	if anims.flip_h == false:
 		collision1.position = Vector2(19, 11)
-		
-		
+	
+	
 		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("a", "d")
+	if not isrolling:
+		if Input.is_action_just_pressed("Q"):
+				if not isAttacking:
+					anims.position.y = 7
+					isrolling = true
+					SPEED = 350
+	
+	
 	if direction:
-		
 		if direction == 1:
 			anims.flip_h = false
 			
 		if direction == -1:
 			anims.flip_h = true
+		if not isrolling:
+			velocity.x = direction * SPEED
 		
-		velocity.x = direction * SPEED
-		if isAttacking == false and is_on_floor():
+		
+		if isAttacking == false and is_on_floor() and isrolling == false:
 			anims.play("Run")
 			
-		if not is_on_floor():
+		if not is_on_floor() and not isrolling:
 			anims.play("Jump")
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		
-		if isAttacking == false and is_on_floor():
+		if isAttacking == false and is_on_floor() and not isrolling:
 			anims.play("Idle")
 
-		if not is_on_floor():
+
+		if not is_on_floor() and isrolling == false:
 			anims.play("Jump")
 			
 		
@@ -99,6 +122,12 @@ func _on_anims_animation_finished():
 			slashSequence += 1
 			collision1.disabled = true
 			isAttacking = false
+			
+	if anims.animation == "roll":
+		anims.position.y = 0
+		isrolling = false
+		SPEED = 300.0
+		velocity.x = SPEED
 		
 
 

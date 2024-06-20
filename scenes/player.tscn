@@ -1,10 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://c4hrlsiyeobxk"]
+[gd_scene load_steps=36 format=3 uid="uid://c4hrlsiyeobxk"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_hjdhj"]
 [ext_resource type="Texture2D" uid="uid://clur7cy2bipti" path="res://Sprites/Player/Idle.png" id="1_mq257"]
 [ext_resource type="Texture2D" uid="uid://c4p26pbo1odc" path="res://Sprites/Player/Run.png" id="2_raoy4"]
 [ext_resource type="Texture2D" uid="uid://uqrijrfte5gk" path="res://Sprites/Player/Jump.png" id="3_wxfh8"]
 [ext_resource type="Texture2D" uid="uid://bg75mxadgapq5" path="res://Sprites/Player/Attacks.png" id="5_0l2qd"]
+[ext_resource type="Texture2D" uid="uid://cotdpyq8mauyx" path="res://Sprites/Player/Roll.png" id="6_y2gcn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d2r65"]
 atlas = ExtResource("1_mq257")
@@ -93,6 +94,22 @@ region = Rect2(512, 64, 128, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_mtqec"]
 atlas = ExtResource("5_0l2qd")
 region = Rect2(640, 64, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w6huh"]
+atlas = ExtResource("6_y2gcn")
+region = Rect2(42, 32, 42, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aphch"]
+atlas = ExtResource("6_y2gcn")
+region = Rect2(168, 32, 42, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlpi0"]
+atlas = ExtResource("6_y2gcn")
+region = Rect2(42, 96, 42, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6cl8j"]
+atlas = ExtResource("6_y2gcn")
+region = Rect2(168, 96, 42, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d4qcu"]
 animations = [{
@@ -186,6 +203,23 @@ animations = [{
 "loop": false,
 "name": &"Slash2",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w6huh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aphch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlpi0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6cl8j")
+}],
+"loop": false,
+"name": &"roll",
+"speed": 7.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_37nty"]
@@ -201,8 +235,8 @@ script = ExtResource("1_hjdhj")
 texture_filter = 1
 position = Vector2(-2, -11)
 sprite_frames = SubResource("SpriteFrames_d4qcu")
-animation = &"Slash2"
-frame = 4
+animation = &"roll"
+frame = 3
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
