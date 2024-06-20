@@ -27,7 +27,7 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 		anims.play("Jump")
 		
-	if isAttacking == true:
+	if isAttacking == true or isrolling:
 		canJump = false
 	else:
 		canJump = true
@@ -60,17 +60,17 @@ func _physics_process(delta):
 	if not isrolling:
 		if Input.is_action_just_pressed("Q"):
 				if not isAttacking:
-					anims.position.y = 7
-					isrolling = true
-					SPEED = 350 
-					velocity.x = SPEED * direction
-					if velocity.x == 0:
+					if is_on_floor():
+						anims.position.y = 7
+						isrolling = true
+						SPEED = 350 
+						velocity.x = direction * SPEED
+						if velocity.x == 0:
+							if anims.flip_h == true:
+								velocity.x = -SPEED
+							if anims.flip_h == false:
+								velocity.x = SPEED
 						
-						if anims.flip_h == true:
-							velocity.x = -SPEED
-							
-						elif anims.flip_h == false:
-							velocity.x = SPEED
 								
 	
 	
@@ -80,6 +80,7 @@ func _physics_process(delta):
 			
 		if direction == -1:
 			anims.flip_h = true
+			
 		if not isrolling:
 			velocity.x = direction * SPEED
 		
@@ -90,7 +91,8 @@ func _physics_process(delta):
 		if not is_on_floor() and not isrolling:
 			anims.play("Jump")
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		if not isrolling:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
 		
 		if isAttacking == false and is_on_floor() and not isrolling:
 			anims.play("Idle")
